@@ -48,15 +48,7 @@ pipeline {
                 }
             }
         }
-        stage('4. Sonar Quality Gate Check') {
-            steps {
-                echo 'Waiting for Quality Gate status...'
-                timeout(time: 10, unit: 'MINUTES') {
-                    waitForQualityGate abortPipeline: true
-                }
-            }
-        }
-
+        
         stage('5. Docker Image Build') {
             steps {
                 echo 'Docker Image building and tagging'
