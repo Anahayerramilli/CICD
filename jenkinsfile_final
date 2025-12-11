@@ -42,7 +42,7 @@ pipeline {
         stage('3. Sonar Scan') {
             steps {
                 echo 'Starting SonarQube analysis'
-                // Uses the fixed server name: 'SonarQube'
+                // Uses the fixed server name: 'sonarqube'
                 withSonarQubeEnv(SONAR_SERVER_NAME) { 
                     sh "mvn sonar:sonar -Dsonar.host.url=${SONAR_URL}"
                 }
