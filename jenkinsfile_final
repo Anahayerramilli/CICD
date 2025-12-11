@@ -14,7 +14,7 @@ pipeline {
         
         // --- SONARQUBE FINALIZED (CASE FIX APPLIED) ---
         // Changed to 'SonarQube' to match the case required by Jenkins global configuration
-        SONAR_SERVER_NAME = 'SonarQube'  
+        SONAR_SERVER_NAME = 'sonarqube'  
         SONAR_URL = 'http://3.145.111.188:9000' 
         
         // --- EKS & DEPLOYMENT DETAILS ---
