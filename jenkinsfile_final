@@ -89,28 +89,20 @@ pipeline {
                 }
             }
         }
-        // --- FINAL DEPLOYMENT STAGE (AWS CREDENTIALS INJECTED HERE) ---
-        stage('8. EKS Deployment Apply') {
-            steps {
-                echo 'Applying Deployment and Service to EKS Cluster'
-                
-                // Uses the generic multi-credential binding (guaranteed to work)
-                withCredentials([
-                    // USE THE IDS YOU CREATED IN STEP 1:
-                    string(credentialsId: 'aws-access-key-id-cred', variable: 'AWS_ACCESS_KEY_ID'),
-                    string(credentialsId: 'aws-secret-key-cred', variable: 'AWS_SECRET_ACCESS_KEY')
-                ]) {
-                    script {
-                        // Commands remain the same, using injected environment variables
-                        sh "aws eks update-kubeconfig --region ${AWS_REGION} --name ${EKS_CLUSTER_NAME}"
-                        sh 'sleep 10'
-                        sh 'kubectl apply -f deploymentfiles/'
-                        sh "kubectl rollout status deployment/${DEPLOYMENT_NAME} --timeout=5m"
-                    }
-                }
-            }
-        }
+        
     }
 }
+    post {
+        always {
+            echo 'Pipeline execution completed.'
+        }
+        success {
+            echo 'Pipeline executed successfully!'
+        }
+        failure {
+            echo 'Pipeline failed. Please check the logs.'
+        }
+    }
+
 
     
